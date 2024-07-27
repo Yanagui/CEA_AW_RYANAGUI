@@ -1,8 +1,8 @@
 with
     fonte_produto_categorias as (
         select 
-            cast(PRODUCTCATEGORYID as int) as pk_produto
-            , cast(NAME as varchar) as nm_produto 
+            cast(PRODUCTCATEGORYID as int) as pk_produto_categoria
+            , cast(NAME as varchar) as nm_produto_categoria 
         from {{ source('erp', 'productcategory') }}
     )
 
