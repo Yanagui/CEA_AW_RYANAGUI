@@ -1,9 +1,9 @@
 with
     fonte_contatos as (
         select
-            cast(BUSINESSENTITYID as int) as pk_entidade
-            , cast(PERSONID as int) as pk_pessoa
-            , cast(CONTACTTYPEID as int) as pk_tipo_contato
+            cast(PERSONID as int) as pk_pessoa
+            , cast(BUSINESSENTITYID as int) as fk_entidade
+            , cast(CONTACTTYPEID as int) as fk_tipo_contato
         from {{ source('erp', 'businessentitycontact') }}
     )
 
