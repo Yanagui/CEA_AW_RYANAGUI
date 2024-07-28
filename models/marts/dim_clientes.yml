@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: dim_clientes
+    description: >
+      Tabela dimensão dos dados de clientes da Adventure Works. 
+      Mantido as chaves estrangeiras de loja, entidade, para entender melhor a logica de uso delas.
+    columns:
+      - name: PK_CLIENTE
+        description: Chave primária da dimensão de clientes
+        tests:
+          - unique              
+          - not_null
+      - name: FK_PESSOA
+        description: Chave estrangeira de pessoas da dimensão de clientes
+      - name: FK_LOJA
+        description: Chave estrangeira de lojas da dimensão de clientes
+      - name: FK_CONTA
+        description: Chave estrangeira de contas da dimensão de clientes
+      - name: PK_ENTIDADE
+        description: Chave primaria de entidades da dimensão de clientes
+      - name: NM_ENTIDADE
+        description: descrição das entidades da dimensão de clientes
+      - name: NM_TITULO
+        description: Titulo do cliente da dimensão de clientes
+      - name: NM_P_NOME
+        description: Primeiro nome do cliente da dimensão de clientes
+      - name: NM_M_NOME
+        description: Nome do meio do cliente da dimensão de clientes
+      - name: NM_U_NOME
+        description: Ultimo nome do cliente da dimensão de clientes
+      - name: NM_SUFIXO
+        description: Sufixo do cliente da dimensão de clientes
+      - name: NM_PAIS
+        description: Nome do pais da dimensão de clientes
+      - name: NM_TERRITORIO
+        description: Nome do territorio da dimensão de clientes
+      - name: NM_GRUPO_TERRITORIO
+        description: Nome do grupo de territorio da dimensão de clientes
