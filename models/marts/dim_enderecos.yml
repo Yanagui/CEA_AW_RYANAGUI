@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_enderecos
+    description: >
+      Tabela dimensão dos enderecos de clientes, lojas, entre outros da Adventure Works. 
+      Também tem informação de territorio.
+    columns:
+      - name: PK_ENDERECO
+        description: Chave primária da dimensão de enderecos
+        tests:
+          - unique
+          - not_null  
+      - name: NM_ENDERECO1
+        description: Contem a parte 1 do endereco
+        tests:
+          - not_null  
+      - name: NM_ENDERECO2
+        description: Contem a parte 2 do endereco
+      - name: NM_CIDADE
+        description: Nome da cidade do endereco
+      - name: NM_CAIXA_POSTAL
+        description: nome da caixa postal do endereco
+      - name: NM_PROVINCIA
+        description: Nome da provincia do endereco
+      - name: NM_PAIS
+        description: Nome do pais do endereco
+      - name: NM_TERRITORIO
+        description: Nome do territorio do endereco
+      - name: NM_GRUPO_TERRITORIO
+        description: Nome do grupo de territorio do endereco

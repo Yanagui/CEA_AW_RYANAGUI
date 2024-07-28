@@ -14,3 +14,11 @@ models:
         description: Nome do produto
         tests:
           - not_null 
+      - name: FK_COD_PRODUTO
+        description: Codigo do produto
+      - name: NM_PRODUTO_SUBCATEGORIA
+        description: Nome da sub categoria do produto
+      - name: NM_PRODUTO_CATEGORIA
+        description: Nome da categoria do produto
+      - name: NM_PRODUTO_MODELO
+        description: Nome do modelo do produto

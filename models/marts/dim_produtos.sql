@@ -24,8 +24,6 @@ with
             produtos.PK_PRODUTO
             , produtos.NM_PRODUTO
             , produtos.FK_COD_PRODUTO
-            , produtos.FK_SUBCATEGORIA
-            , produtos.FK_MODELO
             , modelos.NM_PRODUTO_MODELO
             , subcategorias.NM_PRODUTO_SUBCATEGORIA
             , categorias.NM_PRODUTO_CATEGORIA            
