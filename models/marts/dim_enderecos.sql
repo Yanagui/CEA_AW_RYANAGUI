@@ -29,6 +29,7 @@ with
             --, provincia.PK_COD_PROVINCIA
             --, provincia.FK_COD_PAIS
             , provincia.NM_PROVINCIA
+            , pais.PK_COD_PAIS as COD_PAIS
             , pais.NM_PAIS  
             , territorio.NM_TERRITORIO
             , territorio.NM_GRUPO_TERRITORIO                      
