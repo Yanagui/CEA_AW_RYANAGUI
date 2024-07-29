@@ -37,6 +37,15 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_adventure_works:
-    # Applies to all files under models/example/
-    example:
+    marts:
       +materialized: table
+      +schema: marts
+      intermediate:
+        # mantido como view porque os dados do intermediate estarao na fato vendas
+        +materialized: view
+        +schema: intermediate
+    
+    staging:
+      +schema: staging
+      erp:
+        +materialized: view
