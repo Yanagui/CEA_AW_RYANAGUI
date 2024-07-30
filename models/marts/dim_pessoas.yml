@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: dim_pessoas
+    description: >
+      Tabela dimensão de pessoas com campos para identificar: funcionarios, fornecedores, clientes, lojas, entre outros da Adventure Works. 
+    columns:
+      - name: PK_ENTIDADE
+        description: Chave primária da dimensão de pessoas
+        tests:
+          - unique
+          - not_null  
+      - name: NM_PESSOA
+        description: nome da pessoa da dimensão de pessoas
+      - name: NM_CARGO
+        description: cargo da pessoa caso seja funcionario da dimensão de pessoas
+      - name: PK_CLIENTE
+        description: chave primária de cliente da dimensão de pessoas
+      - name: FK_PESSOA
+        description: chave primaria da pessoa da dimensão de pessoas
+      - name: FK_LOJA
+        description: chave primaria da loja da dimensão de pessoas
+      - name: FK_CONTA
+        description: chave primaria da conta da dimensão de pessoas
+      - name: NM_FORNECEDOR
+        description: nome do fornecedor da dimensão de pessoas
+      - name: COD_CONTA_FORNECEDOR
+        description: codigo da conta do fornecedor da dimensão de pessoas
+      - name: NM_LOJA
+        description: nome da loja da dimensão de pessoas

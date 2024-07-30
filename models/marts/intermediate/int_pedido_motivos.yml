@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_pedido_motivos
+    description: >
+      Tabela intermediaria para criar uma dimensão dos motivos de vendas para os pedidos da Adventure Works. 
+      A tabela origem possui casos com mais de um codigo de motivo para cada pedido, e não foi possível determinar
+      qual é o codigo correto. Desta forma, como um dos pontos do exercicio é identificar os casos de promotion,
+      consolidei esta tabela de pedido vs motivo, considerando que se houver um motivo de promocao, será mantido o codigo.
+      Caso contrario, pegar o codigo com maior valor numerico (maximo)
+    columns:
+      - name: FK_PEDIDO
+        description: Chave primária da dimensão intermediaria pedido motivos
+        tests:
+          - unique
+          - not_null 
+      - name: CONTAGEM_MOTIVO
+        description: contagem de motivos para cada pedido da dimensão intermediaria pedido motivos
+      - name: MINIMO_MOTIVO
+        description: codigo sequencial minimo do motivo do pedido da dimensão intermediaria pedido motivos
+      - name: MAXIMO_MOTIVO
+        description: codigo sequencial maximo do motivo do pedido da dimensão intermediaria pedido motivos
+      - name: FK_MOTIVO2
+        description: codigo sequencial maximo do motivo do pedido, considerando se for 2 (promotion), será mantido, senão pega o maior codigo da dimensão intermediaria pedido motivos
+      - name: NM_MOTIVO
+        description: descrição do motivo da dimensão intermediaria pedido motivos
+      - name: NM_MOTIVO_TIPO          
+        description: tipo de motivo da dimensão intermediaria pedido motivos

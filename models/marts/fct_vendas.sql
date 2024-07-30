@@ -24,6 +24,11 @@ with
         from {{ ref('dim_enderecos') }}
     )
 
+    , pedido_motivos as (
+        select *
+        from {{ ref('int_pedido_motivos') }}
+    )
+
     , joined as (
         select
             fatos.SK_VENDAS
@@ -64,11 +69,14 @@ with
             , dim_clientes.NM_CLIENTE
             , concat(dim_enderecos1.nm_provincia, '-', dim_enderecos1.nm_pais) as ENDERECO_FATURA
             , concat(dim_enderecos2.nm_provincia, '-', dim_enderecos2.nm_pais) as ENDERECO_ENVIO
+            , pedido_motivos.NM_MOTIVO
+            , pedido_motivos.NM_MOTIVO_TIPO
         from pedido_por_itens as fatos
         left join dim_produtos on fatos.fk_produto = dim_produtos.pk_produto
         left join dim_clientes on fatos.fk_cliente = dim_clientes.pk_cliente
         left join dim_enderecos1 on fatos.fk_endereco_envio = dim_enderecos1.pk_endereco
         left join dim_enderecos2 on fatos.fk_endereco_fatura = dim_enderecos2.pk_endereco
+        left join pedido_motivos on fatos.PK_PEDIDO = pedido_motivos.fk_pedido        
     )
 
     , metricas as (
@@ -111,12 +119,12 @@ with
             , NM_CLIENTE
             , ENDERECO_FATURA
             , ENDERECO_ENVIO
+            , NM_MOTIVO
+            , NM_MOTIVO_TIPO
             , V_QTDE_ITEM * V_PRECO_UNIT as valor_bruto
             , V_QTDE_ITEM * (1 - V_OFERTA_DISCONTO) * V_PRECO_UNIT as valor_liquido
-        from joined
+        from joined        
     )
 
 select *
 from metricas
-
---select * from joined where NM_VENDEDOR is not null and fk_status_pedido = 5
