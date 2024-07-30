@@ -18,6 +18,7 @@ sources:
           - name: stateprovinceid
             tests:
               - not_null
+
       - name: businessentitycontact
         columns:
           - name: personid
@@ -45,6 +46,13 @@ sources:
       - name: customer
         columns:
           - name: customerid
+            tests:
+              - unique 
+              - not_null
+
+      - name: employee
+        columns:
+          - name: businessentityid
             tests:
               - unique 
               - not_null
@@ -138,6 +146,13 @@ sources:
               - unique 
               - not_null
 
+      - name: shipmethod
+        columns:
+          - name: shipmethodid
+            tests:
+              - unique 
+              - not_null
+
       - name: specialoffer
         columns:
           - name: specialofferid
@@ -170,3 +185,10 @@ sources:
             tests:
               - unique 
               - not_null    
+        
+      - name: vendor
+        columns:
+          - name: businessentityid
+            tests:
+              - unique 
+              - not_null

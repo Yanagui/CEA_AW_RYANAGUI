@@ -8,6 +8,11 @@ with
         select *
         from {{ ref('stg_erp__pedido_itens') }}
     )
+    
+    , envio as (
+        select *
+        from {{ ref('stg_erp__envio') }}
+    )
 
     , territorios as (
         select *
@@ -29,6 +34,11 @@ with
         from {{ ref('stg_erp__cartoes') }}
     )
 
+    , vendedores as (
+        select *
+        from {{ ref('stg_erp__pessoas') }}
+    )
+
     , joined as (
         select
             ordens.PK_PEDIDO
@@ -37,6 +47,7 @@ with
             , ordens.DT_ENVIO
             , ordens.FK_CLIENTE
             , ordens.FK_VENDEDOR
+            , ordens.FK_STATUS_PEDIDO
             , ordens.FK_TERRITORIO
             , ordens.FK_ENDERECO_FATURA
             , ordens.FK_ENDERECO_ENVIO
@@ -53,27 +64,33 @@ with
             , ordem_detalhes.FK_OFERTA_ESPECIAL
             , ordem_detalhes.V_PRECO_UNIT
             , ordem_detalhes.V_DESCONTO_PRECO_UNIT
-            , territorios.NM_TERRITORIO
-            , territorios.NM_GRUPO_TERRITORIO
-            , pais.NM_PAIS
             , ofertas.NM_OFERTA_ESPECIAL
             , ofertas.V_OFERTA_DISCONTO
             , ofertas.NM_OFERTA_TIPO
             , ofertas.NM_OFERTA_CATEGORIA
-            , cartoes.NM_CARTAO_TIPO
+            , territorios.NM_TERRITORIO
+            , territorios.NM_GRUPO_TERRITORIO
+            , territorios.FK_COD_PAIS
         from ordem_detalhes
         left join ordens on ordem_detalhes.fk_pedido = ordens.pk_pedido
-        left join territorios on ordens.fk_territorio = territorios.pk_territorio
-        left join pais on territorios.fk_cod_pais = pais.pk_cod_pais
         left join ofertas on ordem_detalhes.fk_oferta_especial = ofertas.pk_oferta_especial
-        left join cartoes on ordens.fk_creditcard = cartoes.pk_cartao
+        left join territorios on ordens.fk_territorio = territorios.pk_territorio
+
     )
 
     , criada_chave_primaria as (
         select
             cast(FK_PEDIDO as varchar) || '-' || cast(FK_PRODUTO as varchar) as sk_vendas
-            , *
+            , joined.*
+            , pais.NM_PAIS
+            , cartoes.NM_CARTAO_TIPO
+            , vendedores.NM_CLIENTE as NM_VENDEDOR
+            , envio.NM_ENVIO
         from joined
+        left join envio on joined.fk_metodo_envio = envio.pk_envio                
+        left join cartoes on joined.fk_creditcard = cartoes.pk_cartao
+        left join vendedores on joined.fk_vendedor = vendedores.pk_entidade
+        left join pais on joined.fk_cod_pais = pais.pk_cod_pais
     )
 
 select *
