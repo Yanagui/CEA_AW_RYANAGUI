@@ -68,29 +68,34 @@ with
             , ofertas.V_OFERTA_DISCONTO
             , ofertas.NM_OFERTA_TIPO
             , ofertas.NM_OFERTA_CATEGORIA
-            , territorios.NM_TERRITORIO
-            , territorios.NM_GRUPO_TERRITORIO
-            , territorios.FK_COD_PAIS
         from ordem_detalhes
         left join ordens on ordem_detalhes.fk_pedido = ordens.pk_pedido
         left join ofertas on ordem_detalhes.fk_oferta_especial = ofertas.pk_oferta_especial
-        left join territorios on ordens.fk_territorio = territorios.pk_territorio
-
     )
 
-    , criada_chave_primaria as (
+    , joined2 as (
         select
             cast(FK_PEDIDO as varchar) || '-' || cast(FK_PRODUTO as varchar) as sk_vendas
-            , joined.*
-            , pais.NM_PAIS
+            , joined.*            
             , cartoes.NM_CARTAO_TIPO
             , vendedores.NM_CLIENTE as NM_VENDEDOR
             , envio.NM_ENVIO
+            , territorios.NM_TERRITORIO
+            , territorios.NM_GRUPO_TERRITORIO
+            , territorios.FK_COD_PAIS
         from joined
         left join envio on joined.fk_metodo_envio = envio.pk_envio                
         left join cartoes on joined.fk_creditcard = cartoes.pk_cartao
         left join vendedores on joined.fk_vendedor = vendedores.pk_entidade
-        left join pais on joined.fk_cod_pais = pais.pk_cod_pais
+        left join territorios on joined.fk_territorio = territorios.pk_territorio        
+    )
+    
+    , criada_chave_primaria as (
+        select
+            joined2.*
+            , pais.NM_PAIS
+        from joined2
+        left join pais on joined2.fk_cod_pais = pais.pk_cod_pais
     )
 
 select *
