@@ -26,12 +26,20 @@ with
             , produtos.FK_COD_PRODUTO
             , modelos.NM_PRODUTO_MODELO
             , subcategorias.NM_PRODUTO_SUBCATEGORIA
-            , categorias.NM_PRODUTO_CATEGORIA            
+            , subcategorias.FK_PRODUTO_CATEGORIA          
         from produtos
         left join modelos on produtos.fk_modelo = modelos.pk_produto_modelo
         left join subcategorias on produtos.fk_subcategoria = subcategorias.pk_produto_subcategoria
         left join categorias on subcategorias.fk_produto_categoria = categorias.pk_produto_categoria
     )
 
-    select *
-    from joined
+    , joined2 as (
+        select 
+            joined.*
+            , categorias.NM_PRODUTO_CATEGORIA  
+        from joined
+        left join categorias on joined.fk_produto_categoria = categorias.pk_produto_categoria
+    )
+
+select *
+from joined2

@@ -26,18 +26,25 @@ with
             , endereco.NM_ENDERECO2
             , endereco.NM_CIDADE
             , endereco.NM_CAIXA_POSTAL
-            --, provincia.PK_COD_PROVINCIA
-            --, provincia.FK_COD_PAIS
-            , provincia.NM_PROVINCIA
+            , provincia.FK_TERRITORIO
+            , provincia.FK_COD_PAIS
+            , provincia.PK_COD_PROVINCIA            
+            , provincia.NM_PROVINCIA                     
+        from endereco
+        left join provincia on endereco.fk_provincia = provincia.pk_provincia
+    )
+
+    , joined2 as (
+        select 
+            joined.*
             , pais.PK_COD_PAIS as COD_PAIS
             , pais.NM_PAIS  
             , territorio.NM_TERRITORIO
-            , territorio.NM_GRUPO_TERRITORIO                      
-        from endereco
-        left join provincia on endereco.fk_provincia = provincia.pk_provincia
-        left join pais on provincia.fk_cod_pais = pais.pk_cod_pais
-        left join territorio on provincia.fk_territorio = territorio.pk_territorio
+            , territorio.NM_GRUPO_TERRITORIO 
+        from joined
+        left join pais on joined.fk_cod_pais = pais.pk_cod_pais
+        left join territorio on joined.fk_territorio = territorio.pk_territorio
     )
 
-    select *
-    from joined
+select *
+from joined2

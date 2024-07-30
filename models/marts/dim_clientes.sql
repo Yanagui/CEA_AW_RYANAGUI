@@ -43,16 +43,22 @@ with
             , pessoas.NM_U_NOME
             , pessoas.NM_SUFIXO
             , pessoas.NM_CLIENTE
-            , pais.NM_PAIS  
+            , territorio.FK_COD_PAIS              
             , territorio.NM_TERRITORIO
             , territorio.NM_GRUPO_TERRITORIO                      
         from clientes
         left join lojas on clientes.fk_loja = lojas.pk_entidade
         left join pessoas on clientes.fk_pessoa = pessoas.pk_entidade
         left join territorio on clientes.fk_territorio = territorio.pk_territorio
-        left join pais on territorio.fk_cod_pais = pais.pk_cod_pais
-        where fk_loja is not null
+        
+    )
+    , joined2 as (
+        select
+            joined.*
+            , pais.NM_PAIS
+        from joined
+        left join pais on joined.fk_cod_pais = pais.pk_cod_pais
     )
 
     select *
-    from joined
+    from joined2

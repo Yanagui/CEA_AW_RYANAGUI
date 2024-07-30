@@ -32,13 +32,14 @@ with
             , fatos.DT_PRAZO
             , fatos.DT_ENVIO
             , fatos.FK_CLIENTE
-            , fatos.FK_VENDEDOR -- puxar dados vendedor
+            , fatos.NM_VENDEDOR
+            , fatos.FK_STATUS_PEDIDO
             , fatos.NM_TERRITORIO
             , fatos.NM_GRUPO_TERRITORIO
             , fatos.NM_PAIS
             , fatos.FK_ENDERECO_FATURA
             , fatos.FK_ENDERECO_ENVIO
-            , fatos.FK_METODO_ENVIO -- puxar dados metodo envio
+            , fatos.NM_ENVIO as METODO_ENVIO
             , fatos.NM_CARTAO_TIPO
             , fatos.V_SUBTOTAL_PEDIDO
             , fatos.V_TAXA_PEDIDO
@@ -61,8 +62,8 @@ with
             , dim_clientes.NM_ENTIDADE as nm_empresa_cliente
             , dim_clientes.FK_CONTA
             , dim_clientes.NM_CLIENTE
-            , concat(dim_enderecos1.nm_provincia, '-', dim_enderecos1.nm_pais) as endereco_fatura
-            , concat(dim_enderecos2.nm_provincia, '-', dim_enderecos2.nm_pais) as endereco_envio
+            , concat(dim_enderecos1.nm_provincia, '-', dim_enderecos1.nm_pais) as ENDERECO_FATURA
+            , concat(dim_enderecos2.nm_provincia, '-', dim_enderecos2.nm_pais) as ENDERECO_ENVIO
         from pedido_por_itens as fatos
         left join dim_produtos on fatos.fk_produto = dim_produtos.pk_produto
         left join dim_clientes on fatos.fk_cliente = dim_clientes.pk_cliente
@@ -70,5 +71,52 @@ with
         left join dim_enderecos2 on fatos.fk_endereco_fatura = dim_enderecos2.pk_endereco
     )
 
+    , metricas as (
+        select
+            SK_VENDAS
+            , PK_PEDIDO
+            , DT_PEDIDO
+            , DT_PRAZO
+            , DT_ENVIO
+            , FK_CLIENTE
+            , NM_VENDEDOR
+            , FK_STATUS_PEDIDO
+            , NM_TERRITORIO
+            , NM_GRUPO_TERRITORIO
+            , NM_PAIS
+            , FK_ENDERECO_FATURA
+            , FK_ENDERECO_ENVIO
+            , METODO_ENVIO
+            , NM_CARTAO_TIPO
+            , V_SUBTOTAL_PEDIDO
+            , V_TAXA_PEDIDO
+            , V_FRETE_PEDIDO
+            , V_TOTAL_PEDIDO
+            , PK_PEDIDO_ITEM
+            , V_QTDE_ITEM
+            , FK_PRODUTO
+            , V_PRECO_UNIT
+            , V_DESCONTO_PRECO_UNIT
+            , NM_OFERTA_ESPECIAL
+            , V_OFERTA_DISCONTO
+            , NM_OFERTA_TIPO
+            , NM_OFERTA_CATEGORIA
+            , NM_PRODUTO
+            , FK_COD_PRODUTO
+            , NM_PRODUTO_MODELO
+            , NM_PRODUTO_CATEGORIA
+            , NM_PRODUTO_SUBCATEGORIA
+            , NM_EMPRESA_CLIENTE
+            , FK_CONTA
+            , NM_CLIENTE
+            , ENDERECO_FATURA
+            , ENDERECO_ENVIO
+            , V_QTDE_ITEM * V_PRECO_UNIT as valor_bruto
+            , V_QTDE_ITEM * (1 - V_OFERTA_DISCONTO) * V_PRECO_UNIT as valor_liquido
+        from joined
+    )
+
 select *
-from joined
+from metricas
+
+--select * from joined where NM_VENDEDOR is not null and fk_status_pedido = 5
