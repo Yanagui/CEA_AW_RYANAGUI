@@ -30,7 +30,6 @@ with
         from produtos
         left join modelos on produtos.fk_modelo = modelos.pk_produto_modelo
         left join subcategorias on produtos.fk_subcategoria = subcategorias.pk_produto_subcategoria
-        left join categorias on subcategorias.fk_produto_categoria = categorias.pk_produto_categoria
     )
 
     , joined2 as (
