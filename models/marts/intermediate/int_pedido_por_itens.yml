@@ -1,0 +1,82 @@
+version: 2
+
+models:
+  - name: int_pedido_por_itens
+    description: >
+      Tabela intermediaria para criar uma dimensão dos motivos de vendas para os pedidos da Adventure Works. 
+      A tabela origem possui casos com mais de um codigo de motivo para cada pedido, e não foi possível determinar
+      qual é o codigo correto. Desta forma, como um dos pontos do exercicio é identificar os casos de promotion,
+      consolidei esta tabela de pedido vs motivo, considerando que se houver um motivo de promocao, será mantido o codigo.
+      Caso contrario, pegar o codigo com maior valor numerico (maximo)
+    columns:
+      - name: SK_VENDAS
+        description: Chave primária da dimensão intermediaria de pedido por itens
+        tests:
+          - unique
+          - not_null 
+      - name: PK_PEDIDO
+        description: chave primaria do pedido da dimensão intermediaria de pedido por itens
+      - name: DT_PEDIDO
+        description: data do pedido da dimensão intermediaria de pedido por itens
+      - name: DT_PRAZO
+        description: data prazo do pedido da dimensão intermediaria de pedido por itens
+      - name: DT_ENVIO
+        description: data de envio do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_CLIENTE
+        description: chave primaria do cliente da dimensão intermediaria de pedido por itens
+      - name: FK_VENDEDOR
+        description: chave primaria do vendedor da dimensão intermediaria de pedido por itens
+      - name: FK_STATUS_PEDIDO
+        description: codigo de status do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_TERRITORIO
+        description: chave primaria do territorio da dimensão intermediaria de pedido por itens
+      - name: FK_ENDERECO_FATURA
+        description: chave primaria do endereço de fatura do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_ENDERECO_ENVIO
+        description: chave primaria do endereço de entrega pedido da dimensão intermediaria de pedido por itens
+      - name: FK_METODO_ENVIO
+        description: chave primaria do metodo de envio do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_CREDITCARD
+        description: chave primaria do cartão de crédito para pagamento do pedido da dimensão intermediaria de pedido por itens
+      - name: V_SUBTOTAL_PEDIDO
+        description: valor subtotal do pedido da dimensão intermediaria de pedido por itens
+      - name: V_TAXA_PEDIDO
+        description: valor da taxa do pedido da dimensão intermediaria de pedido por itens
+      - name: V_FRETE_PEDIDO
+        description: valor do frete do pedido da dimensão intermediaria de pedido por itens
+      - name: V_TOTAL_PEDIDO
+        description: valor total do pedido da dimensão intermediaria de pedido por itens
+      - name: PK_PEDIDO_ITEM
+        description: chave primaria do pedido-item da dimensão intermediaria de pedido por itens
+      - name: V_QTDE_ITEM
+        description: valor da quantidade por item do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_PRODUTO
+        description: chave primaria do produto do item do pedido da dimensão intermediaria de pedido por itens
+      - name: FK_OFERTA_ESPECIAL
+        description: chave primaria da oferta para o item do pedido da dimensão intermediaria de pedido por itens
+      - name: V_PRECO_UNIT
+        description: valor do preço unitario do item do pedido da dimensão intermediaria de pedido por itens
+      - name: V_DESCONTO_PRECO_UNIT
+        description: valor do desconto do item do pedido da dimensão intermediaria de pedido por itens
+      - name: NM_OFERTA_ESPECIAL
+        description: descrição da oferta especial para o item do pedido da dimensão intermediaria de pedido por itens
+      - name: V_OFERTA_DISCONTO
+        description: valor da oferta/desconto para o item do pedido da dimensão intermediaria de pedido por itens
+      - name: NM_OFERTA_TIPO
+        description: tipo de oferta para item do pedido da dimensão intermediaria de pedido por itens
+      - name: NM_OFERTA_CATEGORIA
+        description: categoria da oferta para item do pedido da dimensão intermediaria de pedido por itens
+      - name: M_TERRITORIO
+        description: nome do territorio da dimensão intermediaria de pedido por itens
+      - name: NM_GRUPO_TERRITORIO
+        description: nome do grupo do territorio da dimensão intermediaria de pedido por itens
+      - name: FK_COD_PAIS
+        description: codigo do pais da dimensão intermediaria de pedido por itens
+      - name: NM_PAIS
+        description: nome do pais da dimensão intermediaria de pedido por itens
+      - name: NM_CARTAO_TIPO
+        description: tipo do cartão da dimensão intermediaria de pedido por itens
+      - name: NM_VENDEDOR
+        description: nome do vendedor da dimensão intermediaria de pedido por itens
+      - name: NM_ENVIO
+        description: tipo de envio da dimensão intermediaria de pedido por itens
