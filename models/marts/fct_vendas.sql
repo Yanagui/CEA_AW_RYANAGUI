@@ -67,8 +67,10 @@ with
             , dim_clientes.NM_ENTIDADE as nm_empresa_cliente
             , dim_clientes.FK_CONTA
             , dim_clientes.NM_CLIENTE
-            , concat(dim_enderecos1.nm_provincia, '-', dim_enderecos1.nm_pais) as ENDERECO_FATURA
-            , concat(dim_enderecos2.nm_provincia, '-', dim_enderecos2.nm_pais) as ENDERECO_ENVIO
+            , concat(dim_enderecos1.nm_provincia, '-', dim_enderecos1.fk_cod_pais) as ENDERECO_FATURA
+            , concat(dim_enderecos2.nm_provincia, '-', dim_enderecos2.fk_cod_pais) as ENDERECO_ENVIO
+            , dim_enderecos1.nm_provincia as PROVINCIA_ENVIO
+            , dim_enderecos1.nm_cidade as CIDADE_ENVIO
             , pedido_motivos.NM_MOTIVO
             , pedido_motivos.NM_MOTIVO_TIPO
         from pedido_por_itens as fatos
@@ -119,6 +121,8 @@ with
             , NM_CLIENTE
             , ENDERECO_FATURA
             , ENDERECO_ENVIO
+            , PROVINCIA_ENVIO
+            , CIDADE_ENVIO
             , NM_MOTIVO
             , NM_MOTIVO_TIPO
             , V_QTDE_ITEM * V_PRECO_UNIT as valor_bruto
