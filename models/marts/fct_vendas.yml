@@ -6,7 +6,93 @@ models:
       Tabela com as vendas da Northwind. 
     columns:
       - name: sk_vendas
-        description: Chave primária da fatos de vendas.
+        description: Chave primária, pedido e item, da fatos de vendas.
         tests:
           - unique
           - not_null
+      - name: PK_PEDIDO
+        description: chave primaria do pedido da fatos vendas
+      - name: DT_PEDIDO
+        description: data do pedido da fatos vendas
+      - name: DT_PRAZO
+        description: data do prazo do pedido da fatos vendas
+      - name: DT_ENVIO
+        description: data do envio do pedido da fatos vendas
+      - name: FK_CLIENTE
+        description: chave primaria do cliente da fatos vendas
+      - name: NM_VENDEDOR
+        description: nome do vendedor da fatos vendas
+      - name: FK_STATUS_PEDIDO
+        description: status do pedido da fatos vendas
+      - name: NM_TERRITORIO
+        description: territorio da fatos vendas
+      - name: NM_GRUPO_TERRITORIO
+        description: grupo do territorio da fatos vendas
+      - name: NM_PAIS
+        description: pais da fatos vendas
+      - name: FK_ENDERECO_FATURA
+        description: endereco da fatura da fatos vendas
+      - name: FK_ENDERECO_ENVIO
+        description: endereco do envio da fatos vendas
+      - name: METODO_ENVIO
+        description: metodo do envio da fatos vendas
+      - name: NM_CARTAO_TIPO
+        description: tipo de cartao da fatos vendas
+      - name: V_SUBTOTAL_PEDIDO
+        description: valor subtotal do pedido da fatos vendas
+      - name: V_TAXA_PEDIDO
+        description: valor da taxa do pedido da fatos vendas
+      - name: V_FRETE_PEDIDO
+        description: valor do frete do pedido da fatos vendas
+      - name: V_TOTAL_PEDIDO
+        description: valor total do pedido da fatos vendas
+      - name: PK_PEDIDO_ITEM
+        description: chave primaria do pedido e item da fatos vendas
+      - name: V_QTDE_ITEM
+        description: quantidade do item da fatos vendas
+      - name: FK_PRODUTO
+        description: chave primaria do pedido da fatos vendas
+      - name: V_PRECO_UNIT
+        description: preco unitario do pedido da fatos vendas
+      - name: V_DESCONTO_PRECO_UNIT
+        description: percentual do desconto do preco unitario da fatos vendas
+      - name: NM_OFERTA_ESPECIAL
+        description: nome da oferta especial da fatos vendas
+      - name: V_OFERTA_DISCONTO
+        description: percentual do desconto da fatos vendas
+      - name: NM_OFERTA_TIPO
+        description: tipo de oferta da fatos vendas
+      - name: NM_OFERTA_CATEGORIA
+        description: categoria da oferta da fatos vendas
+      - name: NM_PRODUTO
+        description: produto da fatos vendas
+      - name: FK_COD_PRODUTO
+        description: codigo do produto da fatos vendas
+      - name: NM_PRODUTO_MODELO
+        description: modelo do produto da fatos vendas
+      - name: NM_PRODUTO_CATEGORIA
+        description: categoria do produto da fatos vendas
+      - name: NM_PRODUTO_SUBCATEGORIA
+        description: subcategoria do produto da fatos vendas
+      - name: NM_EMPRESA_CLIENTE
+        description: nome da empresa do cliente da fatos vendas
+      - name: FK_CONTA
+        description: codigo da conta da fatos vendas
+      - name: NM_CLIENTE
+        description: nome do cliente da fatos vendas
+      - name: ENDERECO_FATURA
+        description: endereco da fatura (provincia e codigo do pais) da fatos vendas
+      - name: ENDERECO_ENVIO
+        description: endereco do envio (provincia e codigo do pais) da fatos vendas
+      - name: PROVINCIA_ENVIO
+        description: provincia do envio da fatos vendas
+      - name: CIDADE_ENVIO
+        description: cidade do envio da fatos vendas
+      - name: NM_MOTIVO
+        description: motivo da venda da fatos vendas
+      - name: NM_MOTIVO_TIPO
+        description: tipo de motivo da venda da fatos vendas
+      - name: VALOR_BRUTO
+        description: valor bruto da fatos vendas
+      - name: VALOR_LIQUIDO
+        description: valor liquido da fatos vendas
